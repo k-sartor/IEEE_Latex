@@ -1,0 +1,213 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[frenchb]{babel}
+\usepackage{amsmath, amssymb} %Permet notamment des caractères mathématiques plus évolué et d'utiliser le fait que les équations ne soient pas numérotées
+\usepackage{hyperref}			% Pour permettre au lien d'être clicables
+
+\usepackage{blindtext}
+
+% Commandes nécessaires pour générer une page de garde "basique"
+\title{Introduction à Latex}	%On constatera que sans le package inputenc, le "à" n'apparait pas
+\author{Isabelle Mainz et Kevin Sartor}
+\date{\today}						% La date est dans la langue liée à babel
+\usepackage{graphicx}				%pour inclure des images
+\usepackage{listings}				%Pour écrire du Code Source
+
+%A partir d'ici le document commence
+\begin{document}
+\maketitle							%Permet de générer à l'aide des informations précédentes la page de garde basique
+\tableofcontents					%Génère la table des matières
+\newpage							%on impose de passer à une autre page
+
+\section{Une première section numérotée avec les bases "basiques"}
+On commence par signaler le fait que le symbole pourcent est ce qui est utilisé pour faire des commentaires (dans le code source latex).
+
+Dans le préambule (le code avant le begin document), on utilise des packages (les libraires utiles) et d'autres informations génériques), éventuellement des fonctions.
+
+Ce qui est obligatoire est entre accolades et ce qui est optionnel est entre crochets, en gros les options.
+
+Par défaut Latex ne prend pas en compte les espaces multiples comme ici        . Par contre au besoin voici quelques commandes pour en introduire \url{http://www.xm1math.net/doculatex/espacements.html}
+
+L'url est réalisée à l'aide du package hyperref. Pour réaliser un retour à la ligne dans la sortie, il faut une ligne vide dans le code source
+
+Un paragraphe avec du texte pseudo aléatoire: \blindtext 		%commande avec le package du même nom pour remplir de texte pseudo-aléatoire.
+\section{Une deuxième section numérotée}
+\section*{Une section non numérotée et non reprise dans la table des matières} % pareil pour les autres niveau de référence
+La seule différence est l'étoile dans le code source.
+\subsection{Un exemple de sous section}
+\subsubsection{Un exemple de sous sous section}
+
+Attention toutefois que la hiérarchie est valable ici pour la classe article (dans d'autres classes, on pourrait en avoir d'autres).
+
+\paragraph{Un paragraphe}
+
+\subparagraph{Un "sous" paragraphe}
+On notera que par défaut les (sous-)paragraphes ne sont pas référencés dans la table des matières.
+
+\blindtext
+
+\newpage
+\section{Les équations}
+
+Il existe plusieurs possibilités pour écrire des équations. La première c'est d'écrire une équation directement dans le texte $I = \frac{U}{R}$ (loi d'Ohm). Cette équation peut être suivie de texte mais ne peut être liée à une référence (voir par la suite)
+
+Une autre méthode est proposée ci-dessous (dans ce cas elle est centrée et non numérotée).
+$$a_i^e = \frac{A}{B}$$
+
+Une alternative numérotée et référençable
+\begin{equation}
+a_i^e = \frac{A}{B}
+\end{equation}
+
+Exemples avec des indices et exposants dont la longueur est supérieure à un caractère et une introduction au lettres grecques
+\begin{equation}
+a_{indice}^{exposant} = \frac{\omega}{\tau}
+\end{equation}
+
+Une alternative uniquement référençable (nécessite le package amsmath).
+\begin{equation*}
+a_i^e = \frac{A}{B}
+\end{equation*}
+
+\newpage
+\section{Les listes}
+\subsection{La liste simple}
+Premier type de listes (avec tirets)
+\begin{itemize}
+	\item Mon premier élément
+	\item Mon deuxième élément
+	\begin{itemize}
+		\item [$\circ$] Un nouvel élément avec un autre type de "bullet"
+		\item [$\bullet$] Encore un autre...
+	\end{itemize}
+\end{itemize}
+\subsection{Les listes énumérées}
+Une liste avec des nombres
+\begin{enumerate}
+	\item Mon premier élément
+	\item Mon second élément
+\end{enumerate}
+Et comme pour d'autres comportements, on peut redéfinir une commande (ici la numérotation d'une liste énumérée)
+\renewcommand{\theenumi}{\Roman{enumi}}
+
+\begin{enumerate}
+	\item Mon premier élément
+	\item Mon second élément
+\end{enumerate}
+
+\newpage
+\section{Les références\label{sec:refs}}
+	
+	\subsection{Référence à une équation}
+	Voici une équation en ligne $a = b$ et une en bloc \[a = b.\] Pour pouvoir y faire référence il faut utiliser
+	
+	\begin{equation}
+		a = b. \label{eqn:mon-equation}
+	\end{equation}
+	
+	Et je peux maintenant y faire référence comme ça \ref{eqn:mon-equation} ou comme ça \eqref{eqn:mon-equation}.
+	
+	\subsection{Référence à une section\label{sec:ss-ref}}
+		
+	Voici une référence à ma section: \ref{sec:refs}.
+	Ou bien à ma sous-section: \ref{sec:ss-ref}
+	
+	\blindtext
+	
+	Voici une note en bas de page\footnote{ma note}.
+	Voici une deuxième\footnote{2e note}.
+	
+	\newpage
+	
+	\section{Les images}
+	
+	Image qui a la largeur de la page
+	
+	\includegraphics[width=\textwidth]{images/nyan-cat.png}
+	
+	\vspace{1cm}
+	
+	On impose la largeur en cm
+	\includegraphics[width=3cm]{images/nyan-cat.png}
+	
+	\includegraphics[height=2in]{images/nyan-cat.png}
+	
+	\includegraphics[height=2in, width=3cm]{images/nyan-cat.png}
+
+	L'option scale pour définir un ratio à l'image (les proportions sont conservées).
+	
+	\includegraphics[scale=0.15]{images/nyan-cat.png}
+	
+	\blindtext
+	
+	\newpage
+	\begin{figure}[hbt]%h b t p
+		\centering
+		\includegraphics[scale=0.15]{images/nyan-cat.png}
+		\caption{Une image}
+		\label{img:mon-image}
+	\end{figure}
+	
+	Je peux faire référence à mon image: \ref{img:mon-image}.
+	
+	\newpage
+	\section{Les tableaux}
+	
+	Voici un premier tableau:
+	
+	\begin{tabular}{|l|| c |r|} %l r c
+		\hline
+		Nom & Contenance & Stock\\
+		\hline
+		\hline
+		Blanche & 33cl & 25\\
+		Jupiler & 33cl & 149\\
+		Guinness & 1pint & 5\\
+		\hline
+	\end{tabular}
+	
+	\vspace{1cm}
+	
+	
+	\begin{table}[h]
+		\centering
+	\begin{tabular}{|p{3cm}|c|r|r|}
+		\hline
+		Nom & Contenance & Quantité & Stock\\
+		\hline
+		\hline
+		Blanche & 33cl & 30 & 25\\
+		\cline{2-2}
+		Jupiler & 33cl & \multicolumn{2}{c|}{à volonté}\\
+		\cline{3-4}
+		Guinness & 1 pint & 5 & 5\\
+		\hline
+	\end{tabular}
+	\caption{Tableau des bières}
+	\label{tab:bieres}
+	\end{table}
+	
+	Et la référence \ref{tab:bieres}
+	
+	\newpage
+	\section{Writing Source Code in \LaTeX}
+	
+	\lstinputlisting[language=C]{QuickSort.c}
+	
+	Plus d'informations: \url{https://en.wikibooks.org/wiki/LaTeX/Source_Code_Listings} (entre autre pour le Syntax Highlighting)
+	
+	Une alternative: \url{https://en.wikibooks.org/wiki/LaTeX/Algorithms}
+
+\newpage
+\section{Quelques liens utiles}
+De l'aide en général sur ces liens:
+\url{http://www.grappa.univ-lille3.fr/FAQ-LaTeX/} et \url{https://fr.wikibooks.org/wiki/LaTeX}
+
+De l'aide pour connaitre le code de symbole
+\url{http://detexify.kirelabs.org/classify.html}
+
+En règle générale, il est possible d'interroger son moteur de recherche préféré avec une question du type: "Latex note de bas de page en haut" et de trouver très rapidement une solution à son problème. Comme souvent, une question en anglais aura un plus grand nombre de résultats
+
+Pour terminer un site vous permettant d'écrire du latex (en accès ouvert) dans un explorateur web \url{https://fr.wikibooks.org/wiki/LaTeX}
+\end{document}
+
